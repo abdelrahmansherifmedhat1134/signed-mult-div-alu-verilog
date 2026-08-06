@@ -1,6 +1,6 @@
 `timescale 1ns/1ps
 
-module tb_top_signed_mult_div #(parameter width_tb = 8);
+module tb_top_signed_mult_div8 #(parameter width_tb = 8);
 
     // 1. Declare Signals for Top Module[cite: 8]
     reg                               clk_tb;

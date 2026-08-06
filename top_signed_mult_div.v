@@ -1,4 +1,4 @@
-module top_signed_mult_div #(parameter width = 8)(
+module top_signed_mult_div #(parameter width = 16)(
     input  wire                             clk,      
     input  wire                             rst, 
     input  wire        [1:0]                op_sel, //multiplication =2'd0 , division = 2'd1 , remainder = 2'd2 
@@ -39,7 +39,7 @@ module multiplier (
     output reg signed [15:0] sum
 );
 */
-multiplier u_multiplier(
+multiplier #(.width(width)) u_multiplier(
     .clk(clk),
     .rst(rst),
     .enable(mult_enable),
