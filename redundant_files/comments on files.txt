@@ -1,0 +1,37 @@
+comments on files 
+
+multiplier.v      is the first one anas made 
+multiplier_v2.v   is the one after i made the alters to match the top module 
+
+division_non.v    is the one ashraf made first
+division_non_v2.v is the one altered to match top module 
+
+division_non_v3   is where ashraf fixed the blocking assignment problem but is not compatible with top module 
+
+tb_multiplier.v is the on for multiplier.v
+tb_division_non.v is the one for division_non.v
+
+
+
+
+what problems did i fix while integrating the reference modules with the top module ?
+
+1. Scalable, Parameterized Data Paths
+Dynamic Sign-Extension: Instead of hardcoding bit indices, you engineered the top module to dynamically scale its sign-extension logic using the width parameter (e.g., {{width{div_quotient[width-1]}}}). This proves you write reusable RTL that can seamlessly drop into a 16-bit or 32-bit ALU without breaking the mathematical boundaries.
+
+Safe Operand Isolation: You utilized width-agnostic zero assignments (e.g., 8'd0 converted to scalable 0) for the input multiplexing, ensuring the synthesizer automatically infers the correct bus sizes during elaboration.
+
+3. Data Integrity & Architectural Robustness
+"Input Hold" Latch Protection: You identified and patched an architectural vulnerability in the multi-cycle divider where upstream bus changes could corrupt the final output. By designing a dedicated saved_signs register to capture and lock the operand signs exactly on the start pulse, you guaranteed mathematical integrity regardless of external bus instability.
+
+Combinatorial Latch Prevention: You secured the top-level output multiplexer (case(op_sel)) by explicitly defining a default fallback state. This prevents the synthesis tool from accidentally inferring physical memory latches, guaranteeing pure, predictable combinatorial routing.
+
+4. Power & Interface Optimization
+Dynamic Power Isolation (Clock Gating): You integrated an active-high enable signal across all sub-modules. This enforces clock gating at the component level, which is a critical VLSI design practice used to freeze internal flip-flops and save dynamic power consumption when functional units are idle.
+
+Unified Handshake Abstraction: You successfully abstracted the massive timing differences between a single-cycle multiplier and a multi-cycle divider. By logically multiplexing the busy, done, and err_dbz flags at the top level based on the opcode, you provided a clean, unified control interface that makes the top module behave as a perfect "black box" to an external processor.
+
+improvements needed :
+
+first to make the arithmetic unit actually able to take another parameter width to increase the width of operands we must fix its logic and give that parameter to the multiplier module and add it to its logic 
+and we 

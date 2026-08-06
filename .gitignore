@@ -1,0 +1,8 @@
+# Ignore simulation work libraries
+work/
+
+# Ignore waveform dumps and logs
+*.vcd
+*.wlf
+transcript
+*.log
