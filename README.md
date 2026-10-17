@@ -6,9 +6,9 @@ Final project of the **Digital Design using FPGA** course by NTI (National Telec
 
 | Member | Contribution |
 |---|---|
-| Abdelrahman Sherif | Top-level integration (`top_signed_mult_div.v`), adapting and parameterizing the reference multiplier and divider (v2), testbenches, report |
-| Anas | First version of the Radix-4 Booth multiplier |
-| Ashraf | First version of the non-restoring divider |
+| Abdelrahman Sherif ([@abdelrahmansherifmedhat1134](https://github.com/abdelrahmansherifmedhat1134)) | Top-level integration (`top_signed_mult_div.v`); adapting the reference multiplier and divider to the top module (v2) and parameterizing the datapath |
+| Anas Mostafa ([@Anoos-mostafa](https://github.com/Anoos-mostafa)) | First version of the Radix-4 Booth multiplier |
+| Mohamed Ashraf ([@11Mohamed-Ashraf11](https://github.com/11Mohamed-Ashraf11)) | First version of the non-restoring divider |
 
 Earlier versions of each block are kept in [`redundant_files/`](redundant_files) to show how the design evolved (see `redundant_files/comments on files.txt`).
 
