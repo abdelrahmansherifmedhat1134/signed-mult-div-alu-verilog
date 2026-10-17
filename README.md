@@ -6,7 +6,7 @@ Final project of the **Digital Design using FPGA** course by NTI (National Telec
 
 | Member | Contribution |
 |---|---|
-| Abdelrahman Sherif ([@abdelrahmansherifmedhat1134](https://github.com/abdelrahmansherifmedhat1134)) | Top-level integration (`top_signed_mult_div.v`); adapting the reference multiplier and divider to the top module (v2) and parameterizing the datapath |
+| Abdelrahman Sherif ([@abdelrahmansherifmedhat1134](https://github.com/abdelrahmansherifmedhat1134)) | System top module (`top_signed_mult_div.v`) that links the multiplier and divider into one ALU; adapting both blocks to the top module (v2) and parameterizing the datapath; all testbenches; project report |
 | Anas Mostafa ([@Anoos-mostafa](https://github.com/Anoos-mostafa)) | First version of the Radix-4 Booth multiplier |
 | Mohamed Ashraf ([@11Mohamed-Ashraf11](https://github.com/11Mohamed-Ashraf11)) | First version of the non-restoring divider |
 
