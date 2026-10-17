@@ -1,5 +1,17 @@
 # Parameterizable Signed Arithmetic Datapath (ALU)
 
+Final project of the **Digital Design using FPGA** course by NTI (National Telecommunication Institute) / ITIDA.
+
+## 👥 Team and roles
+
+| Member | Contribution |
+|---|---|
+| Abdelrahman Sherif | Top-level integration (`top_signed_mult_div.v`), adapting and parameterizing the reference multiplier and divider (v2), testbenches, report |
+| Anas | First version of the Radix-4 Booth multiplier |
+| Ashraf | First version of the non-restoring divider |
+
+Earlier versions of each block are kept in [`redundant_files/`](redundant_files) to show how the design evolved (see `redundant_files/comments on files.txt`).
+
 A robust, high-performance Verilog implementation of a parameterizable signed arithmetic unit. This datapath features a **Radix-4 Booth Multiplier** for high-speed multiplication and a **Non-Restoring Divider** for efficient division operations. It is designed with a focus on ASIC/FPGA best practices, including power-aware datapath routing, strict synthesis rules, and a unified hardware handshake interface.
 
 ## 🏗️ System Architecture
@@ -25,16 +37,44 @@ The top module acts as a wrapper that abstracts the timing differences between t
 
 ## 🧪 Verification & Simulation
 
-The system is fully verified using a comprehensive, automated testbench (`tb_signed_mult_div.v`). The testbench validates:
-* Pure Two's Complement arithmetic logic.
-* Hardware edge cases including Signed Division Overflow (e.g., `-128 / -1`), Divide-by-Zero assertions, and Asymmetric Boundaries (`Max Positive * Max Negative`).
-* Output multiplexing and the integrity of the unified `done` pulse across single-cycle and multi-cycle operations.
+Each block and the full datapath have their own testbench. The top-level testbenches run at 8 and 16 bits and print each result next to its expected value. They cover:
+* Two's complement multiplication of every sign combination, zero and identity operands, and the asymmetric boundary `Max Positive * Max Negative`.
+* Quotient and remainder outputs, including fractional results and negative operands.
+* Divide-by-zero (`err_dbz`) and the signed overflow case `-128 / -1` (8-bit) or `-32768 / -1` (16-bit).
 
-### How to Run the Simulation (Questa / ModelSim)
-An automated Tcl script (`run_sim.do`) is provided to compile the design, launch the simulator, and instantly generate a beautifully formatted and grouped wave window.
+| Testbench | Unit under test |
+|---|---|
+| `tb/tb_top_signed_mult_div8.v`, `tb/tb_top_signed_mult_div16.v` | full datapath, `width` = 8 / 16 |
+| `tb/tb_multiplier8.v`, `tb/tb_multiplier16.v` | Booth multiplier |
+| `tb/tb_division_non.v` | non-restoring divider |
 
-1. Clone the repository and navigate to the project directory.
-2. Open your Questa/ModelSim terminal.
-3. Execute the following command:
-   ```bash
-   vsim -gui -do run_sim.do
+All 20 checks in each top-level testbench match their expected values in QuestaSim 2021.1.
+
+### How to run (Questa / ModelSim)
+
+`run_sim.do` compiles the RTL, runs a testbench and, in GUI mode, opens a grouped wave window.
+
+```bash
+vsim -do run_sim.do                                       # 16-bit top-level testbench with waves
+vsim -do "set TB tb_top_signed_mult_div8; do run_sim.do"  # any other testbench
+vsim -c -do "do run_sim.do; quit -f"                      # batch mode, console output only
+```
+
+## 📁 Repository layout
+
+```
+rtl/              top_signed_mult_div.v, multiplier.v, division_non.v
+tb/               testbenches (top level 8/16-bit, multiplier, divider)
+docs/             project report (PDF)
+redundant_files/  earlier versions of the multiplier, divider and testbenches
+comments.txt      integration notes
+run_sim.do        Questa/ModelSim script
+```
+
+## 📄 Report
+
+The full report, including the algorithms, design decisions and simulation results, is in [docs/signed-arithmetic-units-report.pdf](docs/signed-arithmetic-units-report.pdf).
+
+## License
+
+All rights reserved. No license is granted to reuse this code.

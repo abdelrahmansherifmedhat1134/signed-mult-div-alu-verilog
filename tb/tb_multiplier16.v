@@ -119,6 +119,13 @@ initial begin
     #1;
     $display("Time = %0t | rst = %b | enable = %b | A = %d, B = %d | Output sum = %d", $time, rst_tb, enable_tb, A_tb, B_tb, sum_tb);
 
+    // Test Case 12: zeros (0*0)
+    @(posedge clk_tb); 
+    A_tb = -16'd0; B_tb = 16'd0; 
+    @(posedge clk_tb); 
+    #1;
+    $display("Time = %0t | rst = %b | enable = %b | A = %d, B = %d | Output sum = %d", $time, rst_tb, enable_tb, A_tb, B_tb, sum_tb);
+
     // End simulation
     #50 $finish;    
     

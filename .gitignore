@@ -1,8 +1,23 @@
-# Ignore simulation work libraries
+# ModelSim / QuestaSim
 work/
-
-# Ignore waveform dumps and logs
-*.vcd
-*.wlf
 transcript
+*.wlf
+*.vcd
+*.vstf
+*.mpf
+*.mpf_new
+*.cr.mti
+
+# Quartus
+db/
+incremental_db/
+output_files/
+simulation/
+*.qws
+*.rpt
+*.summary
+*.smsg
+*.done
+*.sof
+*.pof
 *.log
